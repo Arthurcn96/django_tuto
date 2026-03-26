@@ -38,3 +38,23 @@ def addChoice(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+def deleteQuestion(request, pk):
+    try:
+        question = Question.objects.get(pk=pk)
+    except Question.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    question.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['DELETE'])
+def deleteChoice(request, pk):
+    try:
+        choice = Choice.objects.get(pk=pk)
+    except Choice.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    choice.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
