@@ -1,11 +1,11 @@
-from django.urls import path
+from rest_framework import routers
+from django.urls import path, include
 from . import views
 
+router = routers.DefaultRouter()
+router.register(r'questions', views.QuestionViewSet)
+router.register(r'choices', views.ChoiceViewSet)
+
 urlpatterns = [
-    path('get/', views.getData),
-    path('add/poll/', views.addPoll),
-    path('add/question/', views.addQuestion),
-    path('add/choice/', views.addChoice),
-    path('delete/question/<int:pk>/', views.deleteQuestion),
-    path('delete/choice/<int:pk>/', views.deleteChoice),
+    path('', include(router.urls)),
 ]
